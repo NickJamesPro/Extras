@@ -172,3 +172,11 @@ body{
 .mostrar{
     display: block;
 }
+
+.mostrar {
+    display: block;
+}
+
+.esconder {
+    display: none;
+}

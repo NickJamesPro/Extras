@@ -1,47 +1,23 @@
 const botaoFiltrar = document.querySelector('.btn-filtrar');
 
- botaoFiltrar.addEventListener('click', function(){
+botaoFiltrar.addEventListener('click', () => {
+    const categoriaSelecionada = document.querySelector('#categoria').value.toLowerCase();
+    const precoMaximo = parseFloat(document.querySelector('#preco').value);
+    const cartas = document.querySelectorAll('.carta');
 
-    const categoriaSelecionada = document.querySelector ('#categoria') .value;
-    
-    const precoMaximoSelecionado = document.querySelector ('#preco') .value;
-
-    const cartas = document.querySelectorAll('.carta')
-
-
-        cartas.forEach(function (carta) {
-        const categoriaCarta = carta.dataset.categoria;
-
-        const precoCarta = carta.dataset.preco;
-
-        let mostrarCarta = true;
-
-        console.log('a categoria selecionada é: ', categoriaSelecionada);
-
-        const temFiltroDecategoria = categoriaSelecionada !== '';
-
-        const cartaNaoBateComFiltroDeCategoria = categoriaCarta.toLowerCase() !== categoriaSelecionada.toLowerCase();
-
-        if (temFiltroDecategoria &&   cartaNaoBateComFiltroDeCategoria) {
-            mostrarCarta = false;
-        }
-
-        const temFiltroDePreco = precoMaximoSelecionado !== "";
+    cartas.forEach((carta) => {
+        const categoriaCarta = carta.dataset.categoria.toLowerCase();
+        const precoCarta = parseFloat(carta.dataset.preco);
         
-        const cartaNaoBateComFiltroDePreco = parseFloat(precoCarta) > parseFloat(precoMaximoSelecionado);
+        const categoriaValida = !categoriaSelecionada || categoriaCarta === categoriaSelecionada;
+        const precoValido = isNaN(precoMaximo) || precoCarta <= precoMaximo;
 
-
-        if(precoMaximoSelecionado !== '' && parseFloat(precoCarta) > parseFloat(precoMaximoSelecionado)){
-            mostrarCarta = false;
-        }
-
-        if (mostrarCarta){
+        if (categoriaValida && precoValido) {
             carta.classList.add('mostrar');
             carta.classList.remove('esconder');
-        }else {
+        } else {
             carta.classList.remove('mostrar');
             carta.classList.add('esconder');
         }
-    }); 
+    });
 });
-        
